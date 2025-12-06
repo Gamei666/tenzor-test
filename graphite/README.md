@@ -1,7 +1,7 @@
 Graphite
 =========
 
-Роль устанавливает docker engine и запускает docker контейнер в Graphite на ОС семейства RHEL или Debian
+Роль устанавливает docker engine и запускает docker контейнер c Graphite на ОС семейства RHEL или Debian
 
 Requirements
 ------------
