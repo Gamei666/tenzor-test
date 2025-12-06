@@ -6,7 +6,7 @@ Graphite
 Requirements
 ------------
 
-Дистрибутив семейства RHEL или Debian, поддержка dnf или yum соответственно
+Дистрибутив семейства RHEL или Debian, поддержка dnf или apt соответственно
 
 Role Variables
 --------------
