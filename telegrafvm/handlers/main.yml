@@ -1,0 +1,9 @@
+---
+# handlers file for telegrafvm
+
+- name: Restart Telegraf service (systemd)
+  become: true
+  ansible.builtin.service:
+    name: telegraf
+    state: restarted
+  listen: "Restart Telegraf"

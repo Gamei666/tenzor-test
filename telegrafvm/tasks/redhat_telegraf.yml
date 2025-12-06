@@ -1,0 +1,15 @@
+- name: Add influx repo key
+  become: true
+  ansible.builtin.yum_repository:
+    baseurl: https://repos.influxdata.com/stable/\$basearch/main
+    name: influx
+    gpgcheck: true
+    gpgkey: https://repos.influxdata.com/influxdata-archive.key
+    description: influx repo for telegraf and other products
+
+- name: Install Telegraf
+  become: true
+  ansible.builtin.dnf:
+    name: telegraf
+    state: present
+    update_cache: true

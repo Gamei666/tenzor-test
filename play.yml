@@ -1,0 +1,24 @@
+- name: InstallVM
+  tags: first_play
+  hosts: vmhost
+  gather_facts: true
+  roles:
+    - vboxhost
+    - graphite
+
+  tasks:
+    - name: Add VM to inventory
+      ansible.builtin.add_host:
+        name: vagrant.vb_name
+        groups: vmguest
+        ansible_host: "{{ vagrant.ip }}"
+        ansible_user: "vagrant"
+        ansible_ssh_private_key_file: "{{ vm_dir }}/.vagrant/machines/default/virtualbox/private_key"
+        ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
+- name: InstallTelegraf
+  tags: second_play
+  hosts: vmguest
+  gather_facts: true
+  roles:
+    - telegrafvm

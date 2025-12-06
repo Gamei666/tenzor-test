@@ -1,0 +1,14 @@
+- name: Add influx repository source
+  become: true
+  ansible.builtin.deb822_repository:
+    name: influx
+    uris: https://repos.influxdata.com/debian stable main
+    signed_by: https://repos.influxdata.com/influxdata-archive.key
+    enabled: true
+
+- name: Install Telegraf
+  become: true
+  ansible.builtin.apt:
+    name: telegraf
+    state: present
+    update_cache: true

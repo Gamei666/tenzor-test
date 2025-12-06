@@ -1,0 +1,13 @@
+---
+vm_dir: /usr/centosvm
+
+# Vagrant related vars
+vagrant:
+    vg_name: centos9
+    box_url: https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-Vagrant-9-latest.x86_64.vagrant-virtualbox.box
+    net_name: centos9-test
+    disksize: 20 GB
+    cpu: 2
+    vb_name: centos9-test
+    memory: 2048
+    ip: 192.168.56.2

@@ -1,0 +1,47 @@
+---
+# tasks file for vboxhost
+- name: Install VirtualBox
+  ansible.builtin.include_tasks: "tasks/{{ ansible_os_family | lower }}_vbox.yml"
+
+- name: Check Vagrant latest version in YandexMirror
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      curl https://hashicorp-releases.yandexcloud.net/vagrant | grep -oP '\d\.\d+\.\d+' | sort -uV | tail -n 1
+    executable: /bin/bash
+  register: vagrant_latest
+  changed_when: false
+
+- name: Show latest Version
+  ansible.builtin.debug:
+    msg: "Latest Vagrant version in mirror is: {{ vagrant_latest.stdout }}"
+
+- name: Install Vagrant binary
+  become: true
+  ansible.builtin.unarchive:
+    src: "https://hashicorp-releases.yandexcloud.net/vagrant/{{ vagrant_latest.stdout }}/vagrant_{{ vagrant_latest.stdout }}_linux_amd64.zip"
+    dest: /usr/bin
+    mode: "0755"
+    owner: "root"
+    include:
+      - vagrant
+    remote_src: true
+
+- name: Make VM dir
+  ansible.builtin.file:
+    path: "{{ vm_dir }}"
+    state: directory
+    mode: '644'
+
+- name: Create Vagrantfile
+  ansible.builtin.template:
+    src: templates/vagrantfile.j2
+    dest: "{{ vm_dir }}/Vagrantfile"
+    mode: '644'
+
+- name: Start VM
+  ansible.builtin.command: vagrant up
+  args:
+    chdir: "{{ vm_dir }}"
+  register: vagrant_up_result
+  changed_when: "'Machine already provisioned' not in vagrant_up_result.stdout"

@@ -1,0 +1,12 @@
+---
+# tasks file for telegrafvm
+- name: Install Telegraf
+  ansible.builtin.include_tasks: "tasks/{{ ansible_os_family | lower }}_telegraf.yml"
+
+- name: Configure Telegraf
+  become: true
+  ansible.builtin.template:
+    src: ./templates/telegraf.j2
+    dest: /etc/telegraf/telegraf.conf
+    mode: '644'
+  notify: Restart Telegraf

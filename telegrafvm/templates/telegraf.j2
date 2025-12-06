@@ -1,0 +1,31 @@
+[agent]
+
+{%- for agents_params, params_value in telegraf_agent.items() %}
+  
+  {{ agents_params }} = {{ params_value | to_json }}
+
+  {%- endfor %}
+
+{% for inputs_name, params in telegraf_inputs.items() %}
+
+[[inputs.{{ inputs_name }}]]
+
+  {%- for input_param, input_value in params.items() %}
+
+  {{ input_param }} = {{ input_value | to_json }}
+
+  {%- endfor %}
+
+  {% endfor %}
+
+{%- for outputs_name, params in telegraf_outputs.items() %}
+
+[[outputs.{{ outputs_name }}]]
+
+  {%- for output_param, output_value in params.items() %}
+
+  {{ output_param }} = {{ output_value | to_json | lower }}
+
+  {%- endfor %}
+
+  {% endfor %}

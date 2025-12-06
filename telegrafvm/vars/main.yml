@@ -1,0 +1,50 @@
+---
+# vars file for telegrafvm
+
+# Telegraf config template variables
+
+telegraf_agent:
+  hostname: centos9vm
+  flush_interval: 10s
+  interval: 1s
+
+telegraf_inputs:
+  cpu:
+    percpu: true
+    totalcpu: true
+    fieldinclude:
+      - usage_user
+      - usage_system
+      - usage_iowait
+      - usage_irq
+      - usage_guest
+      - time_idle
+  mem:
+    fieldinclude:
+      - total
+      - used
+      - used_percent
+      - available
+      - swap_free
+  disk:
+    mount_points:
+      - "/"
+    fieldinclude:
+      - free
+      - inodes_free
+      - inodes_used_percent
+      - total
+      - used_percent
+      - used
+  diskio:
+    fieldinclude:
+      - write_bytes
+      - read_bytes
+      - io_await
+
+telegraf_outputs:
+  graphite:
+    servers:
+      - 192.168.56.1:2003
+    graphite_tag_support: false
+    template: "host.tags.measurement.field"

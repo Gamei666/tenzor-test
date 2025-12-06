@@ -1,0 +1,6 @@
+- name: Install VirtualBox
+  become: true
+  ansible.builtin.dnf:
+    name: virtualbox
+    state: present
+    update_cache: true

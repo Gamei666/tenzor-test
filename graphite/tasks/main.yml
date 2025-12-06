@@ -1,0 +1,29 @@
+---
+# tasks file for graphite
+- name: Install Dependencies
+  ansible.builtin.include_tasks:
+    "tasks/{{ ansible_os_family | lower }}_graphite_dep.yml"
+
+- name: Install python docker SDK
+  ansible.builtin.pip:
+    name: docker
+    state: present
+
+- name: Run Graphite Container
+  community.docker.docker_container:
+    name: graphite
+    image: ghcr.io/deniszh/graphite-statsd
+    state: started
+    restart_policy: always
+    exposed_ports:
+      - 80
+      - 2003
+      - 2004
+      - 8125
+      - 8126
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:2003-2004:2003-2004"
+      - "0.0.0.0:2023-2024:2023-2024"
+      - "0.0.0.0:8125:8125/udp"
+      - "0.0.0.0:8126:8126"
