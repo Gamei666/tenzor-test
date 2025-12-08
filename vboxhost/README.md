@@ -1,12 +1,12 @@
-Role Name
+Vbox+TestVM        
 =========
 
-A brief description of the role goes here.
+Роль устанавливает VirtualBox в ОС семейства RHEL или Debian используя пакетные менеджеры dnf и apt соответственно. Затем устанавливает последнюю версию Vagrant из зеркала в YandexCloud.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+ОС семейства RHEL или Debian с соответствующими пакетными менеджерами.
 
 Role Variables
 --------------
