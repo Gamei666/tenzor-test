@@ -11,12 +11,23 @@ Requirements
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+vm_dir: Папка установки ВМ
+
+Переменные для Vagrant
+vagrant:
+    vg_name: Имя ВМ Vagrant
+    box_url: https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-Vagrant-9-latest.x86_64.vagrant-virtualbox.box
+    net_name: Имя хоста
+    disksize: Размер диска (в GB)
+    cpu: кол-во CPU
+    vb_name: Имя в VirtualBox
+    memory: Выделяемая память
+    ip: IP-адрес, учитывайте, что стандартная подсеть в VirtualBox 192.168.56.0/24 соответственно попытка выдать адрес вне этой сети приведёт к ошибке.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+-
 
 Example Playbook
 ----------------
@@ -25,7 +36,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - vboxhost
 
 License
 -------
@@ -35,4 +46,3 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
